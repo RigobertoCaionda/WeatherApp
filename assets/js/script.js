@@ -54,12 +54,16 @@ searchInput.addEventListener('keyup',(e)=>{
 	}
 });
 async function loadingCountryStatus(){
-	let req = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&appid=c76d837a8c559bbe5d1b045f18cb5679`);
-	let json = await req.json();
-	if(json.cod == 404){
-		alert('City not found\n Type a valid name');
-	}else{
-		findCountryDetails(json);
+	try{
+		let req = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&appid=c76d837a8c559bbe5d1b045f18cb5679`);
+		let json = await req.json();
+		if(json.cod == 404){
+			alert('City not found\n Type a valid name');
+		}else{
+			findCountryDetails(json);
+		}
+	}catch(error){
+		alert('Alguma coisa deu errado, tente novamente!');
 	}
 }
 function findCountryDetails(lista){
